@@ -1,55 +1,58 @@
-import './App.css'
+import './App.css';
 
-import { useState } from 'react'
+import { useState } from 'react';
 import { Routes, Route } from 'react-router';
 
-import Cabecalho from "./components/Cabecalho";
-import CardModulo from "./components/CardModulo";
+import Cabecalho from './components/Cabecalho';
+import CardModulo from './components/CardModulo';
 
-import CadastroChamado from './pages/CadastroChamado';
+import CadastroChamado from './pages/CadastroChamados';
+import ListarChamado from './pages/ListarChamados';
+import EditarChamado from './pages/EditarChamados';
+import Chamados from './pages/Chamados';
 
-import chamadosInicias from './data/chamados';
-
+import chamadosIniciais from './data/chamados';
 
 function App() {
   const [mostrarModulos, setMostrarModulos] = useState(true);
-  const [chamados, setChamados] = useState(chamadosInicias);
+  const [chamados, setChamados] = useState(chamadosIniciais);
 
   const [modulos] = useState([
     {
       id: 1,
-      titulo: "Gerenciamento de Chamados",
-      descricao: "Cadastrar, consulte, excluir, alterar os chamados disponíveis.",
-      rota: '/chamados'
+      titulo: 'Gerenciamento de Chamados',
+      descricao:
+        'Cadastrar, consultar, excluir e alterar os chamados disponíveis.',
+      rota: '/chamados',
     },
   ]);
-
 
   function adicionarChamado(novoChamado) {
     const chamadoComId = {
       id: Date.now(),
       ...novoChamado,
-    }
+    };
+
     setChamados((listaAtual) => [
       ...listaAtual,
       chamadoComId,
     ]);
+  }
 
-    function exluirChamado(id) {
-      setChamados((listaAtual) =>
-        listaAtual.filter((chamado) => chamado.id !== id)
-      );
-    }
+  function excluirChamado(id) {
+    setChamados((listaAtual) =>
+      listaAtual.filter((chamado) => chamado.id !== id)
+    );
+  }
 
-    function alterarChamado(chamadoAtualizado) {
-      setChamados((listaAtual) =>
-        listaAtual.map((chamado) =>
-          chamado.id === chamadoAtualizado.id
-            ? chamadoAtualizado
-            : chamado
-        )
-      );
-    }
+  function alterarChamado(chamadoAtualizado) {
+    setChamados((listaAtual) =>
+      listaAtual.map((chamado) =>
+        chamado.id === chamadoAtualizado.id
+          ? chamadoAtualizado
+          : chamado
+      )
+    );
   }
 
   return (
@@ -59,10 +62,10 @@ function App() {
         element={
           <div className="aplicacao">
             <Cabecalho />
-            <main className="conteudo-principal">
 
+            <main className="conteudo-principal">
               <p className="introducao">
-                Desafio Tecnico. Desenvolvindo Por Henrique Porto de Sousa
+                Desafio Técnico. Desenvolvido por Henrique Porto de Sousa.
               </p>
 
               <button
@@ -70,9 +73,10 @@ function App() {
                 className="botao-alternar"
                 onClick={() => setMostrarModulos(!mostrarModulos)}
               >
-                {mostrarModulos ? "Ocultar módulos" : "Exibir módulos"}
+                {mostrarModulos
+                  ? 'Ocultar módulos'
+                  : 'Exibir módulos'}
               </button>
-
 
               {mostrarModulos && (
                 <section className="modulos">
@@ -92,23 +96,22 @@ function App() {
       />
 
       <Route
-        path='/chamados'
-        element={
-          <Chamados />
-        }
+        path="/chamados"
+        element={<Chamados />}
       />
 
       <Route
-        path='/chamados/listar'
+        path="/chamados/listar"
         element={
-          <Chamados
-            
+          <ListarChamado
+            chamados={chamados}
+            aoExcluir={excluirChamado}
           />
         }
       />
 
       <Route
-        path='/chamados/cadastrar'
+        path="/chamados/cadastrar"
         element={
           <CadastroChamado
             chamados={chamados}
@@ -118,13 +121,16 @@ function App() {
       />
 
       <Route
-        path='/chamados/editar/:id'
+        path="/chamados/editar/:id"
         element={
-          <Chamados />
+          <EditarChamado
+            chamados={chamados}
+            aoAlterar={alterarChamado}
+          />
         }
       />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
