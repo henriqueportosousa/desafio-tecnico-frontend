@@ -6,6 +6,7 @@ function CadastroChamado({ chamados, aoCadastrar }) {
     const [descricao, setDescricao] = useState('');
     const [prioridade, setPrioridade] = useState('1');
     const [solicitante, setSolicitante] = useState('');
+    const [status, setStatus] = useState('ABERTO');
     const [erros, setErros] = useState({});
     const [mensagemSucesso, setMensagemSucesso] = useState('');
 
@@ -55,7 +56,7 @@ function CadastroChamado({ chamados, aoCadastrar }) {
             descricao: descricao.trim(),
             prioridade: Number(prioridade),
             solicitante: solicitante.trim(),
-            status: 'ABERTO'
+            status: status // Salva o texto direto do status
         };
 
         aoCadastrar(novoChamado);
@@ -66,12 +67,14 @@ function CadastroChamado({ chamados, aoCadastrar }) {
         setTitulo('');
         setDescricao('');
         setPrioridade('1');
+        setStatus('ABERTO');
         setSolicitante('');
     }
 
     return (
         <main className="pagina">
             <h1>Cadastrar novo chamado</h1>
+<span style={{fontWeight: "bold", color: "black"}}>Desafio Tecnico. Desenvolvindo por Henrique Porto de Sousa</span>
 
             {mensagemSucesso && (
                 <p className="mensagem-sucesso">
@@ -133,9 +136,9 @@ function CadastroChamado({ chamados, aoCadastrar }) {
                         limparErro('prioridade');
                     }}
                 >
-                    <option value="1">1 - Baixa</option>
-                    <option value="2">2 - Média</option>
-                    <option value="3">3 - Alta</option>
+                    <option value="1">Baixa</option>
+                    <option value="2">Média</option>
+                    <option value="3">Alta</option>
                 </select>
 
                 <label htmlFor="solicitante">Solicitante</label>
@@ -156,6 +159,27 @@ function CadastroChamado({ chamados, aoCadastrar }) {
                 {erros.solicitante && (
                     <span className="mensagem-erro">
                         {erros.solicitante}
+                    </span>
+                )}
+
+                <label htmlFor="status">Status</label>
+                <select
+                    id="status"
+                    value={status}
+                    onChange={(evento) => {
+                        setStatus(evento.target.value);
+                        limparErro('status');
+                    }}
+                >
+                    <option value="ABERTO">ABERTO</option>
+                    <option value="EM ANDAMENTO">EM ANDAMENTO</option>
+                    <option value="CONCLUÍDO">CONCLUÍDO</option>
+                    <option value="CANCELADO">CANCELADO</option>
+                </select>
+
+                {erros.status && (
+                    <span className="mensagem-erro">
+                        {erros.status}
                     </span>
                 )}
 

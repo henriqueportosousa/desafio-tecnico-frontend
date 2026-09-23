@@ -21,8 +21,7 @@ function App() {
     {
       id: 1,
       titulo: 'Gerenciamento de Chamados',
-      descricao:
-        'Cadastrar, consultar, excluir e alterar os chamados disponíveis.',
+      descricao: 'Cadastrar, consultar, excluir e alterar os chamados disponíveis.',
       rota: '/chamados',
     },
   ]);
@@ -65,7 +64,7 @@ function App() {
 
             <main className="conteudo-principal">
               <p className="introducao">
-                Desafio Técnico. Desenvolvido por Henrique Porto de Sousa.
+                Desafio Técnico de Frontend
               </p>
 
               <button

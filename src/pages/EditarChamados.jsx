@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 function EditarChamado({ chamados, aoAlterar }) {
     const { id } = useParams();
@@ -60,7 +60,7 @@ function EditarChamado({ chamados, aoAlterar }) {
             descricao: descricao.trim(),
             prioridade: Number(prioridade),
             solicitante: solicitante.trim(),
-            status
+            status: status // Salva como texto diretamente ('ABERTO', 'EM ANDAMENTO', etc.)
         };
 
         aoAlterar(chamadoAtualizado);
@@ -134,22 +134,28 @@ function EditarChamado({ chamados, aoAlterar }) {
                         limparErro('prioridade');
                     }}
                 >
-                    <option value="1">1 - Baixa</option>
-                    <option value="2">2 - Média</option>
-                    <option value="3">3 - Alta</option>
+                    <option value="1">Baixa</option>
+                    <option value="2">Média</option>
+                    <option value="3">Alta</option>
                 </select>
 
                 <label htmlFor="status">Status</label>
                 <select
                     id="status"
                     value={status}
-                    onChange={(evento) => setStatus(evento.target.value)}
+                    onChange={(evento) => {
+                        setStatus(evento.target.value);
+                        limparErro('status');
+                    }}
                 >
                     <option value="ABERTO">ABERTO</option>
                     <option value="EM ANDAMENTO">EM ANDAMENTO</option>
-                    <option value="CONCLUIDO">CONCLUÍDO</option>
+                    <option value="CONCLUÍDO">CONCLUÍDO</option>
                     <option value="CANCELADO">CANCELADO</option>
                 </select>
+                {erros.status && (
+                    <span className="mensagem-erro">{erros.status}</span>
+                )}
 
                 <label htmlFor="solicitante">Solicitante</label>
                 <input
