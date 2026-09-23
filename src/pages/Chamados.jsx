@@ -4,7 +4,7 @@ function Chamados() {
     return (
         <div className="pagina">
             <h1>Gerenciamento de Chamados</h1>
-             <p>Desafio Técnico. Desenvolvido por Henrique Porto de Sousa.</p>
+            <span style={{fontWeight: "bold", color: "black"}}>Desafio Tecnico. Desenvolvindo por Henrique Porto de Sousa</span>
             <p>Escolha uma das opções:</p>
             <div className="opcoes">
                 <Link to="/chamados/listar">
