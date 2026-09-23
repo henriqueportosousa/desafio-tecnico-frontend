@@ -19,6 +19,7 @@ function ListarChamado({ chamados, aoExcluir }) {
             <ul className="lista">
                 {chamados.map((chamado) => (
                     <li key={chamado.id}>
+                        <span>ID: {chamado.id}</span>
                         <strong>Titulo: {chamado.titulo}</strong>
                         <span>Desricao: {chamado.descricao}</span>
                         <span>Priopriedade: {chamado.prioridade}</span>
